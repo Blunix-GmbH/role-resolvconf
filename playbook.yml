@@ -1,0 +1,10 @@
+- name: manage /etc/resolv.conf
+  hosts: all
+  roles:
+    blunix_role-resolvconf_11.0.0
+  vars:
+
+    resolvconf_lines:
+      - "nameserver 172.16.0.5"
+      - "nameserver 172.16.0.6"
+      - "search {{ company_internal_domain }}"

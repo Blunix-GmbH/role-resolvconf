@@ -1,0 +1,3 @@
+resolvconf_lines:
+  - nameserver 127.0.0.1
+  - search lan

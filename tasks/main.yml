@@ -1,0 +1,20 @@
+- name: unprotect /etc/resolv.conf for writing by Ansible
+  file:
+    path: /etc/resolv.conf
+    attributes: 'e'
+
+- name: template /etc/resolv.conf
+  template:
+    src: templates/etc/resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0444
+
+- name: protect /etc/resolv.conf from being overwritten
+  file:
+    path: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0444
+    attributes: 'ie'
