@@ -1,3 +1,14 @@
+- name: check if /etc/resolv.conf is a symlink
+  stat:
+    path: /etc/resolv.conf
+  register: resolv_conf_is_link
+
+- name: remove symlink /etc/resolv.conf
+  file:
+    state: absent
+    path: /etc/resolv.conf
+  when: resolv_conf_is_link.stat.islnk is defined and resolv_conf_is_link.stat.islnk
+
 - name: unprotect /etc/resolv.conf for writing by Ansible
   file:
     path: /etc/resolv.conf
