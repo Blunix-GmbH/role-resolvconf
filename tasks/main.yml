@@ -13,6 +13,7 @@
   file:
     path: /etc/resolv.conf
     attributes: 'e'
+  when: resolv_conf_is_link.stat.islnk is not defined
 
 - name: template /etc/resolv.conf
   template:
