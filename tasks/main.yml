@@ -13,7 +13,7 @@
   file:
     path: /etc/resolv.conf
     attributes: 'e'
-  when: resolv_conf_file_stat.stat.exists == True and resolv_conf_file_stat.stat.islnk is not defined
+  when: ( resolv_conf_file_stat.stat.exists == True and resolv_conf_file_stat.stat.islnk is not defined ) or ( resolv_conf_file_stat.stat.exists == True and resolv_conf_file_stat.stat.islnk == False )
 
 - name: template /etc/resolv.conf
   template:
