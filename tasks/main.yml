@@ -1,19 +1,22 @@
-- name: check if /etc/resolv.conf is a symlink
+- name: gather /etc/resolv.conf file stat
   stat:
     path: /etc/resolv.conf
-  register: resolv_conf_is_link
+  register: resolv_conf_file_stat
 
 - name: remove symlink /etc/resolv.conf
   file:
     state: absent
     path: /etc/resolv.conf
-  when: resolv_conf_is_link.stat.islnk is defined and resolv_conf_is_link.stat.islnk
+  when: resolv_conf_file_stat.stat.islnk is defined and resolv_conf_file_stat.stat.islnk
+
+- debug:
+    msg: "{{ resolv_conf_file_stat }}"
 
 - name: unprotect /etc/resolv.conf for writing by Ansible
   file:
     path: /etc/resolv.conf
     attributes: 'e'
-  when: not resolv_conf_is_link.stat.islnk or not resolv_conf_is_link.stat.exists
+  when: resolv_conf_file_stat.stat.exists == True and resolv_conf_file_stat.stat.islnk is not defined
 
 - name: template /etc/resolv.conf
   template:
