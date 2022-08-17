@@ -9,9 +9,6 @@
     path: /etc/resolv.conf
   when: resolv_conf_file_stat.stat.islnk is defined and resolv_conf_file_stat.stat.islnk
 
-- debug:
-    msg: "{{ resolv_conf_file_stat }}"
-
 - name: unprotect /etc/resolv.conf for writing by Ansible
   file:
     path: /etc/resolv.conf
